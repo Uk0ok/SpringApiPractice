@@ -19,4 +19,5 @@ import com.example.demo.vo.ApiVO;
 public interface ApiService {
 	public String create(MultipartFile file, ApiVO apiVo);
 	public String downlaod(String elementId);
+	public String delete(String elementId);
 }

@@ -28,6 +28,7 @@ import com.windfire.apis.asys.asysUsrElement;
  */
 @Service
 public class ApiServiceImpl implements ApiService{
+    private asysConnectData conn = null;
 
 	@Value("${xtorm.engineIp}")
     private String hostName;
@@ -83,15 +84,11 @@ public class ApiServiceImpl implements ApiService{
             } finally {
                 try {
                     fileStream.close();
+                    disconn();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-        }
-        
-        if(conn != null) {
-            conn.close();
-            conn = null;
         }
         
         return result;
@@ -101,26 +98,44 @@ public class ApiServiceImpl implements ApiService{
 	public String downlaod(String elementId) {
 		asysConnectData conn = new asysConnectData(hostName, port, description, id, password);
 		String result = "";
-
 		asysUsrElement uePage = new asysUsrElement(conn);
-
-		uePage.m_elementId = gateway + "::" + elementId + "::" + apiVO.getEClassId();
-		
-		int ret = uePage.getContent(elementId);
+		uePage.m_elementId = gateway + "::" + elementId + "::IMAGE ";
+		int ret = uePage.getContent("temp/" + elementId);
 		
 		if (ret != 0) {
 			result = "Error, download failed, " + uePage.getLastError();
 		} else {
 			result = "Success, download normal, " +  uePage.m_elementId;
 		}
-
-		if(conn != null) {
-            conn.close();
-            conn = null;
-        }
+		System.out.println(result);
+		disconn();
 		
 		return result;
 	}
 
-	
+    @Override
+    public String delete(String elementId) {
+        asysConnectData conn = new asysConnectData(hostName, port, description, id, password);
+		String result = "";
+		asysUsrElement uePage = new asysUsrElement(conn);
+        uePage.m_elementId = gateway + "::" + elementId + "::IMAGE ";
+        int ret = uePage.delete();
+
+        if (ret != 0) {
+            result = "Error, delete failed, " + uePage.getLastError();
+		} else {
+            result = "Success, delete normal, " + uePage.m_elementId;
+		}
+        System.out.println(result);
+        disconn();
+
+        return result;
+    }
+
+	public void disconn() {
+        if (conn != null) {
+			conn.close();
+			conn = null;
+		}
+    }
 }

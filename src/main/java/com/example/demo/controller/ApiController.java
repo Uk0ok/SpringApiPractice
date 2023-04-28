@@ -1,10 +1,9 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,11 +52,25 @@ public class ApiController {
 		return "/api/download";
 	}
 
+	@ResponseBody
 	@RequestMapping(value = "/download", method = RequestMethod.POST)
-	public void download(String elementId) {
-		
-		System.out.println("downloadApi Start ... ");
+	public void download(@RequestBody String elementId) {
+		System.out.println("download Api Start ... ");
 		apiService.downlaod(elementId);
-		System.out.println("End downloadApi ... ");
+		System.out.println("End download Api ... ");
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public String delete() {
+		
+		return "/api/delete";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public void delete(@RequestBody String elementId) {
+		System.out.println("delete Api Start ... ");
+		apiService.delete(elementId);
+		System.out.println("End delete Api ... ");
 	}
 }

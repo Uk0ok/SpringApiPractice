@@ -20,4 +20,5 @@ public class ApiVO {
     private String cClassId;
     private String userClass;
     private String eClassId;
+    private int createNumber;
 }

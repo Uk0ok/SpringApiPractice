@@ -21,10 +21,10 @@
 			<tbody>
 				<tr>
 					<td><input type="file" id="createFile" name="createFile"></td>
-					<td><input type="text" id="createDescription" name="createDescription"placeholder="TEST"></td>
-					<td><input type="text" id="createcClassId" name="createcClassId" placeholder="BASIC"></td>
-					<td><input type="text" id="createUserClass" name="createUserClass" placeholder="SUPER"></td>
-					<td><input type="text" id="createeClassId" name="createeClassId" placeholder="IMAGE"></td>
+					<td><input type="text" id="createDescription" name="createDescription" value="TEST"></td>
+					<td><input type="text" id="createcClassId" name="createcClassId" value="394053_CC"></td>
+					<td><input type="text" id="createUserClass" name="createUserClass" value="SUPER"></td>
+					<td><input type="text" id="createeClassId" name="createeClassId" value="IMAGE"></td>
 				</tr>
 			</tbody>
 		</table><br>

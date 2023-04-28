@@ -1,9 +1,13 @@
 $(function (){
 	$('#downButton').on('click', function() {
 		let elementId = $('#downElementId').val();
-		
-		let downloadJson = new FormData();
-		downloadJson.append('elementId', elementId);
+
+		console.log(elementId);
+
+		if(elementId.trim() =='' || elementId.trim == null){
+			alert('데이터를 입력해주세요')
+			return;
+		}
 
 		let success = function(result) {
 			console.log('download success');
@@ -13,21 +17,18 @@ $(function (){
 			console.log('download failed');
 		}
 
-		AjaxUtil.ajax("/api/download", "POST", downloadJson, success, error);
+		AjaxUtil.ajax("/api/download", "POST", elementId, success, error);
 	})
 });
 
 let AjaxUtil = {
 	ajax : function($url, $type, $data, $success, $error, $async) {	
 		let $json = ($data) ? JSON.stringify($data) : "";
-		
 		let $asyncOpt = ($async) ? true : false;
+
+		console.log($json);
 		
 		$.ajax({
-			headers : { 
-		        'Accept' : 'application/json',
-		        'Content-Type' : 'application/json' 
-			},
 			url : $url,
 			type : $type,
 			async : $asyncOpt,
@@ -37,10 +38,10 @@ let AjaxUtil = {
 			complete : function() {
 				$('.wrap-loading').css('display', 'none');
 			},
-			dataType : 'json',
-			data : $json,
-			contentType : 'application/json;charset=UTF-8',
-			mimeType : 'application/json',
+			// json data는 ""가 붙어있어 ""를 제거하는 과정이 필요
+			data : $json.replace(/"/g,''),
+			dataType : 'JSON',
+			contentType: 'application/json',
 			success : function(response, textStatus) {
 				if (textStatus=="success")
 					$success(response);

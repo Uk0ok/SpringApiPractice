@@ -1,17 +1,13 @@
 $(function (){
 	$('#createButton').on('click', function() {
-		// createApi();
-		console.log('click event');
 		let file = document.getElementById('createFile').files[0];
 		let description = $('#createDescription').val();
 		let cClassId = $('#createcClassId').val();
 		let userClass = $('#createUserClass').val();
 		let eClassId = $('#createeClassId').val();
 		let createNumber = $('#createNumber').val();
-		console.log('setConfig finished');
 		
 		let createJson = new FormData();
-		console.log('createJson!');
 
 		createJson.append('file', file);
 		createJson.append('description', description);
@@ -19,7 +15,6 @@ $(function (){
 		createJson.append('userClass', userClass);
 		createJson.append('eClassId', eClassId);
 		createJson.append('createNumber', createNumber);
-		console.log('createJson finished');
 
 		let success = function(result) {
 			console.log('create success');
