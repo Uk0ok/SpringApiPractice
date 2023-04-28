@@ -52,7 +52,6 @@ public class ApiController {
 		return "/api/download";
 	}
 
-	@ResponseBody
 	@RequestMapping(value = "/download", method = RequestMethod.POST)
 	public void download(@RequestBody String elementId) {
 		System.out.println("download Api Start ... ");
@@ -66,7 +65,6 @@ public class ApiController {
 		return "/api/delete";
 	}
 
-	@ResponseBody
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public void delete(@RequestBody String elementId) {
 		System.out.println("delete Api Start ... ");
